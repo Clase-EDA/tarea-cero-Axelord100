@@ -1,0 +1,96 @@
+package eda;
+
+public class Lista <T>{
+    private Nodo<T> cabeza;
+    private int cont;
+
+    public Lista(Nodo<T> cabeza, int cont) {
+        cabeza = new Nodo(null);
+        this.cont = cont;
+    }
+    
+    //Imprimir el contenido de la lista de cabeza al final
+    public void imprimeDer() {
+        imprimeDer(cabeza.getSig());
+    }
+    
+    private void imprimeDer(Nodo<T> actual) {
+        if(actual == null)
+            return;
+
+        System.out.println(actual.getElem());
+        imprimeDer(actual.getSig());
+    }
+    
+    //Imprimir el contenido al reves
+    public void ImprimeIzq() {
+        imprimeIzq(cabeza.getSig());
+    }
+    
+    private void imprimeIzq(Nodo<T> actual) {
+        if(actual == null)
+            return;
+        
+        imprimeIzq(actual.getSig());
+        System.out.println(actual.getElem());
+    }
+    
+    //Agregar un elemento al final
+    public void agrega(T elem) {
+        agrega(cabeza, elem);
+    }
+    
+    private void agrega(Nodo<T> actual, T elem) {
+        if(actual.getSig() == null) {
+            actual.setSig(new Nodo(elem));
+            return;
+        }
+        
+        agrega(actual.getSig(), elem);
+    }
+    
+    //Eliminar un elemento
+    public void elimina(T elem) {
+        Nodo<T> act = cabeza.getSig();
+        elimina(act.getSig(), act,  elem);
+    } 
+    
+    private void elimina(Nodo<T> act, Nodo<T> ant, T elem) {
+        if(act != null) {
+            if(act.getElem() == elem) {
+                ant.setSig(act.getSig());
+                act.setSig(null);
+            }
+            //return elimina(act.getSig(), ant.getSig(), elem); 
+        }
+             
+    }
+            
+    //Invertir la lista cambiando los apuntadores de los nodos
+    public void invierteLista() {
+        Nodo<T> temp = cabeza.getSig();
+        Nodo<T> ant = null;
+        Nodo<T> sig = null;
+        invierteLista(temp, ant, sig);
+    }
+    
+    private void invierteLista(Nodo<T> temp, Nodo<T> ant, Nodo<T> sig) {
+        if(temp == null)
+            return;
+        
+        sig = temp.getSig();
+        temp.setSig(ant);
+        ant = temp;
+        temp = sig;
+        invierteLista(temp.getSig(), ant.getSig(), sig.getSig());
+    }
+    
+    //Invierte la lista cambiando solo los elementos
+    public void invierteListaE() {
+        
+    }
+    
+    private void invierteListaE() {
+
+    }
+}
